@@ -1,5 +1,6 @@
 package com.Cesde.hospital.Servicio;
 
+import com.Cesde.hospital.DTO.PacienteCitaDTO;
 import com.Cesde.hospital.DTO.PacienteDTO;
 import com.Cesde.hospital.Mapper.IPacienteMapper;
 import com.Cesde.hospital.Repositorio.IPaciente;
@@ -31,6 +32,16 @@ public class SPaciente implements IServicioPaciente {
                 // 3. Mapear cada PacienteProjection a un PacienteDTO usando el Mapper
                 .map(mapper::toDTO)
                 // 4. Volver a empaquetar el resultado en una Lista
+                .collect(Collectors.toList());
+    }
+
+
+    // Añade este método en tu clase SPaciente
+    @Override
+    public List<PacienteCitaDTO> obtenerHistorialCitasPacientes() {
+        return repositorioPaciente.obtenerHistorialCitasPacientes()
+                .stream()
+                .map(mapper::toPacienteCitaDTO) // Usa el nuevo método del mapper
                 .collect(Collectors.toList());
     }
 }
